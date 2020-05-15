@@ -1,0 +1,53 @@
+{{template "base" .}}
+{{define "main"}}
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col col-4">
+                <h1>Checkout</h1>
+                <form action="/" method="POST">
+                    <div class="form-control">
+                        <label for="fullname">Fullname</label>
+                        <input type="text" id="fullname" name="fullname" value="John Doe">
+                    </div>
+
+                    <div class="form-control">
+                        <label for="card_number">Credit Card Number</label>
+                        <input type="text" id="card_number" name="card_number" value="1111-1111-1111-1111">
+                    </div>
+
+                    <button class="btn btn-warning" type="submit">Pay Now</button>
+                </form>
+            </div>
+
+            <div class="col col-8">
+                <table class="table-fill">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Sell Price</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{range .ShoppingCart.Products}}
+                        <tr>
+                            <td>{{.Name}}</td>
+                            <td>{{.Stock}}</td>
+                            <td>{{.Price}}$</td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+
+                    <tfoot style="border-top: 1px solid grey;">
+                        <tr>
+                            <td></td>
+                            <td>Total</td>
+                            <td>{{.ShoppingCart.Total}}$</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{{end}}

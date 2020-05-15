@@ -1,0 +1,70 @@
+{{template "base" .}}
+
+{{define "main"}}
+<div class="container mt-2">
+    <div class="row mt-2">
+        <div class="col-12 flex">
+            <a class="btn pull-right" href="/admin/createProduct">New Product</a>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4">
+            <div class="left-sidebar">
+                {{if .Categories}}
+                    <ul>
+                        <li><a href="/?cat_id=0">All Categories</a></li>
+                        {{range .Categories}}
+                            <li><a href="/?cat_id={{.ID}}">{{.Name}}</a></li>
+                        {{end}}
+                    </ul>
+                {{else}}
+                    <p>No Categories, yet!</p>
+                {{end}}
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="main-content">
+                {{if .Products}}
+                    <table border="1">
+                            <tr>
+                                <th>ID</th>
+                                <th>CAT ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>IMG</th>
+                                <th>Created</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+
+                            {{range .Products}}
+                                <tr>
+                                    <td>{{.ID}}</td>
+                                    <td>{{.CatID}}</td>
+                                    <td>{{.Name}}</td>
+                                    <td>{{.Price}}</td>
+                                    <td>{{.Stock}}</td>
+                                    <td>
+                                        <img style="width: 100px;" src="/static/uploads/{{.ImgURL}}">
+                                    </td>
+                                    <td>{{.Created}}</td>
+                                    <td><a class="btn btn-warning" href="#">Edit</a></td>
+                                    <td><a class="btn btn-danger" href="/admin/deleteProduct?id={{.ID}}">Delete</a></td>
+                                </tr>
+                            {{end}}
+                    </table>
+                {{else}}
+                    <p>No Products, yet!</p>
+                {{end}}
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="right-sidebar"></div>
+</div>
+
+{{end}}

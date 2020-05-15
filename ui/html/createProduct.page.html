@@ -1,0 +1,67 @@
+{{template "base" .}}
+
+{{define "main"}}
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <h1>Create New Product</h1>
+                <form action="/admin/createProduct" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="cat_id">Category</label>
+                        {{with .FormErrors.cat_id}}
+                            <label class="error">{{.}}</label>
+                        {{end}}
+                        <select name="cat_id" id="cat_id">
+                            {{range .Categories}}
+                            <option value="{{.ID}}">{{.Name}}</option>
+                            {{end}}
+                        </select>
+                    </div>                  
+                    <div class="form-group mt-2">
+                        <label for="name">Name</label>
+                        {{with .FormErrors.name}}
+                            <label class="error">{{.}}</label>
+                        {{end}}
+                        <input type="text" id="name" name="name" value='{{.FormData.Get "name"}}'>
+                    </div>  
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        {{with .FormErrors.price}}
+                            <label class="error">{{.}}</label>
+                        {{end}}
+                        <input type="number" id="price" name="price" value='{{.FormData.Get "price"}}'>
+                    </div>                    
+                    
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        {{with .FormErrors.stock}}
+                            <label class="error">{{.}}</label>
+                        {{end}}
+                        <input type="text" id="stock" name="stock" value='{{.FormData.Get "stock"}}'>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        {{with .FormErrors.image}}
+                            <label class="error">{{.}}</label>
+                        {{end}}                        
+                        <input type="file" id="image" name="image">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        {{with .FormErrors.description}}
+                            <label class="error">{{.}}</label>
+                        {{end}}
+                        <textarea id="description" name="description" rows="20" value='{{.FormData.Get "description"}}'></textarea>
+                    </div>
+
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+{{end}}

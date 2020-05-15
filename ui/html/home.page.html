@@ -1,0 +1,80 @@
+{{template "base" .}}
+
+{{define "main"}}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-4">
+            <div class="left-sidebar">
+                {{if .Categories}}
+                    <ul>
+                        <li><a href="/?cat_id=0">All Categories</a></li>
+                        {{range .Categories}}
+                            <li><a href="/?cat_id={{.ID}}">{{.Name}}</a></li>
+                        {{end}}
+                    </ul>
+                {{else}}
+                    <p>No Categories, yet!</p>
+                {{end}}
+
+            </div>
+            <div class="cart">
+                <h4>My Shopping Cart</h4>
+                <ul>
+                    {{range .ShoppingCart.Products}}
+                    <li><span class="cart-num">{{.Stock}}</span> x {{.Name}}  <span class="cart-price">{{.Price}}$</span> <button>X</button></li>
+                    {{end}}
+                </ul>
+                <hr>
+                <div class="float-left">
+                    <a href="/buy" class="btn btn-inline">Checkout</a>
+                    <a href="/emptyCart" class="btn btn-danger btn-inline">Empty</a>
+                </div>
+                <div class="cart-total-price float-right">
+                    <p>Total:</p>
+                    <p>{{.ShoppingCart.Total}}$</p>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        <div class="col-8">
+            <div class="main-content">
+                {{if .Products}}
+                    <div>
+                    {{range .Products}}
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/static/uploads/{{.ImgURL}}">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-content-text">
+                                    <h2>{{.Name}}</h2>
+                                    <h3 class="price">{{.Price}}$</h3>
+                                </div>
+                                <form action="/addToCart" method="POST">
+                                    <input type="hidden" name="id" value="{{.ID}}">
+                                    <input type="hidden" name="name" value="{{.Name}}">
+                                    <input type="hidden" name="cat_id" value="{{.CatID}}">
+                                    <input type="hidden" name="price" value="{{.Price}}">
+                                    <input type="hidden" name="stock" value="{{.Stock}}">
+                                    <input type="hidden" name="img_url" value="{{.ImgURL}}">
+                                    <input type="hidden" name="description" value="{{.Description}}">
+                                    <button class="btn" type="submit">Add to cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    {{end}}
+                    </div>
+                {{else}}
+                    <p>No Products, yet!</p>
+                {{end}}
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{{end}}
